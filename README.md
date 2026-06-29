@@ -23,7 +23,7 @@ The vector index is **pre-built** in this repo (`data/chroma/`, ~29k chunks). Af
 >
 > ```powershell
 > git lfs install
-> git clone https://github.com/your-username/godot_rag.git
+> git clone https://github.com/MohanadDiab/godot_rag.git
 > ```
 
 ```powershell

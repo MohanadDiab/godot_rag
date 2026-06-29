@@ -40,8 +40,8 @@ godot-ask = "godot_rag.cli:ask_main"
 godot-rag = "godot_rag.cli:rag_main"
 
 [project.urls]
-Repository = "https://github.com/your-username/godot_rag"
-Documentation = "https://github.com/your-username/godot_rag#readme"
+Repository = "https://github.com/MohanadDiab/godot_rag"
+Documentation = "https://github.com/MohanadDiab/godot_rag#readme"
 
 [tool.setuptools.packages.find]
 where = ["."]
