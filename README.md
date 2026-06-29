@@ -4,6 +4,49 @@ A retrieval-augmented assistant for **Godot 4.x**. It searches official document
 
 The vector index is **pre-built** in this repo (`data/chroma/`, ~29k chunks). After install and an API key, you can ask questions immediately — no need to clone Godot docs or demos unless you rebuild the index.
 
+## RAG engine
+
+| Layer | Technology | Details |
+|-------|------------|---------|
+| **Vector store** | [ChromaDB](https://www.trychroma.com/) | Persistent HNSW index in `data/chroma/` (`godot_rag` collection) |
+| **Embeddings** | `sentence-transformers/all-MiniLM-L6-v2` | 384-dim, runs locally via HuggingFace — no embedding API key needed |
+| **Corpus** | Godot 4.x docs + official demos | ~29k chunks: 28k docs, 1.5k demos (`getting_started/`, `tutorials/`, `classes/`, demo `.gd`/`.cs`/`.tscn`/`.tres`) |
+| **Agent** | LangChain + OpenAI | Single `search_godot_docs` tool; answers grounded in retrieved context |
+
+### Chunking
+
+Chunks are built in four phases: docs → demos → cross-linking → merge.
+
+**Documentation** is split by document structure first, then semantically where it helps:
+
+- **Class reference** (`classes/class_*.rst`) — **coarse** chunks (class overview, property/method lists) and **fine** chunks (individual methods, properties, signals)
+- **Tutorials & getting started** — section-based chunks; long sections (>500 chars) pass through LangChain's **SemanticChunker**, which splits at embedding-similarity breakpoints (95th-percentile threshold)
+- **Fallback** — `RecursiveCharacterTextSplitter` (4,000 char max, 200 char overlap) when semantic splitting is skipped (`--no-semantic`) or text is too short
+
+**Demo projects** are chunked by file type with role metadata:
+
+| Role | Sources |
+|------|---------|
+| `code` / `shader` | `.gd`, `.cs`, `.gdshader`, `.glsl` |
+| `scene` / `resource` | `.tscn`, `.tres` |
+| `project_overview` | `project.godot`, README sections |
+| Long scripts (>300 lines) | Optional semantic split |
+
+**Cross-linking** connects docs ↔ demos (class names, file paths, manual overrides in `link_overrides.json`). ~15k chunks carry `related_ids` so retrieval can pull linked context beyond the initial vector hits.
+
+### Retrieval
+
+Raw vector search (`query`) supports metadata filters (`source_type`, `role`, `language`, `granularity`) and **link expansion** — top hits pull in their `related_ids` neighbors.
+
+The agent retriever (`retrieve` / `search_godot_docs`) goes further:
+
+1. **Query hints** — regex heuristics infer preferred `role` (e.g. `code` for `.gd` queries, `api_ref` for class names) and `granularity` (`fine` for `snake_case` methods, `coarse` for "How does X work?")
+2. **Multi-slot assembly** — results bucketed into separate prompt sections: **Documentation** (4), **Example code** (3), **Scenes/resources** (2), **Linked context** (5)
+3. **Supplemental searches** — if a slot is thin, targeted follow-up queries against docs or demos fill the gap
+4. **Anchor chunks** — known high-value doc+demo pairs (e.g. dodge-the-creeps player, compute heightmap) are injected for matching queries
+
+Retrieval runs entirely on your machine. Only the final answer step calls OpenAI.
+
 ## Features
 
 - Pre-built ChromaDB index over Godot 4.x docs and official demo projects
