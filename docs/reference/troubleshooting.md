@@ -31,9 +31,11 @@ If download is slow or blocked, ensure your network allows HuggingFace Hub acces
 
 | Issue | Fix |
 |-------|-----|
-| Blank page in dev mode | Ensure `godot-web` is running on port 8000 and Vite dev server on 5173 |
+| `Web UI not built` message | Run `cd web/ui && npm run build`, or use `godot-web --dev` |
+| Blank page in dev mode | Use `godot-web --dev` (starts API + Vite); open `http://localhost:5173` |
+| Blank page in production | Run `npm run build` in `web/ui`, then `godot-web`; open `http://127.0.0.1:8000` |
 | API key popup on send | Add your key in the top bar, or set `OPENAI_API_KEY` in `.env` for CLI |
-| CORS errors in dev | Use the Vite dev server URL (`localhost:5173`), not the API port directly |
+| CORS errors in dev | Use `http://localhost:5173`, not the API port directly |
 
 ## Python environment
 

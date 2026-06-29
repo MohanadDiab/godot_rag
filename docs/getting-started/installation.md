@@ -73,6 +73,30 @@ This runs local retrieval only (no API key needed). For a full agent answer:
 godot-ask "How does CharacterBody2D move_and_slide work?"
 ```
 
+## Web UI (optional)
+
+Install the web extra and frontend dependencies:
+
+```powershell
+pip install -e ".[web]"
+cd web/ui && npm install && cd ../..
+```
+
+**Production** (single server on port 8000):
+
+```powershell
+cd web/ui && npm run build && cd ../..
+godot-web
+```
+
+**Development** (hot reload, single command):
+
+```powershell
+godot-web --dev
+```
+
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000) (production) or [http://localhost:5173](http://localhost:5173) (dev). See [Web UI](../user-guide/web-ui.md).
+
 ## What's included
 
 | Path | Purpose |

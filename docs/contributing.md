@@ -17,7 +17,10 @@ cd godot_rag
 git lfs pull
 python -m venv .venv
 .\.venv\Scripts\pip install -e ".[web]"
+cd web/ui && npm install && cd ../..
 ```
+
+**Web UI development:** `godot-web --dev` (API + Vite in one terminal).
 
 ## Documentation preview
 

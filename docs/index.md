@@ -41,6 +41,16 @@ godot-ask "How does CharacterBody2D move_and_slide work?"
 
 See [Installation](getting-started/installation.md) for details and the [Web UI](user-guide/web-ui.md) setup.
 
+### Web UI (one terminal)
+
+```powershell
+pip install -e ".[web]"
+cd web/ui && npm install && npm run build && cd ../..
+godot-web
+```
+
+For UI development with hot reload: `godot-web --dev` → [localhost:5173](http://localhost:5173).
+
 ## License
 
 Pipeline and application code is [MIT](https://github.com/MohanadDiab/godot_rag/blob/main/LICENSE). Indexed content comes from [Godot documentation](https://github.com/godotengine/godot-docs) and [demo projects](https://github.com/godotengine/godot-demo-projects) — follow their respective licenses when redistributing derived data.

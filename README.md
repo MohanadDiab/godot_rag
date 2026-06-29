@@ -32,12 +32,13 @@ godot-ask "How does CharacterBody2D move_and_slide work?"
 
 ```powershell
 pip install -e ".[web]"
+cd web/ui && npm install && npm run build && cd ../..
 godot-web
 ```
 
-In a second terminal for development: `cd web/ui && npm install && npm run dev` → [localhost:5173](http://localhost:5173).
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000). For hot reload during UI development: `godot-web --dev` → [localhost:5173](http://localhost:5173).
 
-See the [Web UI guide](https://godot-rag.readthedocs.io/en/latest/user-guide/web-ui/) for production setup.
+See the [Web UI guide](https://godot-rag.readthedocs.io/en/latest/user-guide/web-ui/) for details.
 
 ## Documentation
 
