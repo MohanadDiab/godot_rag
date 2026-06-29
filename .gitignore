@@ -1,0 +1,37 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Secrets — never commit API keys
+.env
+.env.local
+.env.*.local
+*.pem
+secrets.json
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Generated pipeline artifacts (regenerate via godot-rag commands)
+data/chunks_docs.jsonl
+data/chunks_demos.jsonl
+data/agent_prompt_eval.json
+data/retrieval_eval.json
+data/corpus_stats_demos.json
+
+# Source corpora — clone with scripts/setup_sources.ps1 when rebuilding the index
+godot-docs/
+godot-demo-projects/
