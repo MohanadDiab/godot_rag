@@ -11,6 +11,9 @@ build/
 .mypy_cache/
 .ruff_cache/
 
+# MkDocs local build
+site/
+
 # Secrets — never commit API keys
 .env
 .env.local
@@ -25,13 +28,18 @@ secrets.json
 .DS_Store
 Thumbs.db
 
-# Generated pipeline artifacts (regenerate via godot-rag commands)
+# Web UI build artifacts
+web/ui/node_modules/
+web/ui/dist/
+
+# Generated pipeline artifacts (not used in runtime distribution)
 data/chunks_docs.jsonl
 data/chunks_demos.jsonl
 data/agent_prompt_eval.json
 data/retrieval_eval.json
 data/corpus_stats_demos.json
+data/retrieval_eval_notes.md
 
-# Source corpora — clone with scripts/setup_sources.ps1 when rebuilding the index
+# Source corpora — not shipped in this distribution
 godot-docs/
 godot-demo-projects/

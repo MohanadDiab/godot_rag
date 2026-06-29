@@ -3,10 +3,23 @@
 from __future__ import annotations
 
 import json
+import threading
+import time
+from collections.abc import Callable
 from typing import Any
 
 from scripts.chunk.config import CHROMA_COLLECTION_NAME, EMBEDDING_MODEL
 from scripts.chunk.schema import Chunk
+
+_embeddings_warmed = False
+_embeddings_lock = threading.Lock()
+_embedding_fn = None
+
+ProgressCallback = Callable[[float, str], None]
+
+
+def embeddings_are_warmed() -> bool:
+    return _embeddings_warmed
 
 
 def chunk_to_chroma_metadata(chunk: Chunk) -> dict[str, str | int | float | bool]:
@@ -46,11 +59,54 @@ def parse_related_ids(metadata: dict[str, Any]) -> list[str]:
 
 def get_embedding_function():
     """Return Chroma embedding function using the configured sentence-transformers model."""
-    from chromadb.utils import embedding_functions
+    global _embedding_fn
+    if _embedding_fn is None:
+        from chromadb.utils import embedding_functions
 
-    return embedding_functions.SentenceTransformerEmbeddingFunction(
-        model_name=EMBEDDING_MODEL,
-    )
+        _embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
+            model_name=EMBEDDING_MODEL,
+        )
+    return _embedding_fn
+
+
+def warmup_embeddings(progress: ProgressCallback | None = None) -> None:
+    """Load the sentence-transformers model used for vector search (first call only)."""
+    global _embeddings_warmed
+
+    if _embeddings_warmed:
+        return
+
+    with _embeddings_lock:
+        if _embeddings_warmed:
+            return
+
+        short_name = EMBEDDING_MODEL.rsplit("/", 1)[-1]
+        stop = threading.Event()
+
+        def _tick_progress() -> None:
+            pct = 0.08
+            while not stop.wait(0.35):
+                pct = min(0.88, pct + 0.07)
+                if progress:
+                    progress(pct, f"Downloading & loading {short_name}…")
+
+        if progress:
+            progress(0.05, f"Loading embedding model ({short_name})…")
+
+        ticker = threading.Thread(target=_tick_progress, daemon=True)
+        ticker.start()
+        try:
+            embedding_fn = get_embedding_function()
+            embedding_fn(["godot rag warmup"])
+        finally:
+            stop.set()
+            ticker.join(timeout=0.2)
+
+        if progress:
+            progress(1.0, "Embedding model ready")
+
+        _embeddings_warmed = True
+        time.sleep(0)  # yield GIL after heavy load
 
 
 def get_chroma_client(persist_dir: str):

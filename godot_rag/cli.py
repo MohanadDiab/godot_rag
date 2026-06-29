@@ -68,10 +68,3 @@ def ask_main(argv: list[str] | None = None) -> int:
 
     print(agent.ask(args.question))
     return 0
-
-
-def rag_main(argv: list[str] | None = None) -> int:
-    """Entry point for ``godot-rag`` — full pipeline CLI."""
-    from scripts.chunk_pipeline import main
-
-    return main(argv)

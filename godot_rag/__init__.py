@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from scripts.agent.godot_agent import GodotAgent, ask
+from scripts.agent.godot_agent import GodotAgent, ask, stream_ask
 from scripts.ingest.retriever import (
     AgentContext,
     format_context_for_prompt,
@@ -31,6 +31,7 @@ __all__ = [
     "AgentContext",
     "GodotAgent",
     "ask",
+    "stream_ask",
     "format_context_for_prompt",
     "retrieve_for_agent",
     "search",

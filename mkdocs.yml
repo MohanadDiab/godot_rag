@@ -1,0 +1,54 @@
+site_name: Godot RAG
+site_description: RAG assistant for Godot 4.x — official docs and demo projects
+site_url: https://godot-rag.readthedocs.io/
+repo_url: https://github.com/MohanadDiab/godot_rag
+repo_name: MohanadDiab/godot_rag
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.expand
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+  palette:
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting started:
+      - Installation: getting-started/installation.md
+      - API keys: getting-started/api-keys.md
+  - User guide:
+      - CLI: user-guide/cli.md
+      - Web UI: user-guide/web-ui.md
+      - Python API: user-guide/python-api.md
+  - Reference:
+      - How it works: reference/how-it-works.md
+      - Troubleshooting: reference/troubleshooting.md
+  - Contributing: contributing.md

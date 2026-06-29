@@ -33,16 +33,16 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8.0.0"]
+web = ["fastapi>=0.115.0", "uvicorn[standard]>=0.32.0", "httpx>=0.28.0"]
 
 [project.scripts]
 godot-ask = "godot_rag.cli:ask_main"
-godot-rag = "godot_rag.cli:rag_main"
+godot-web = "web.api.main:run"
 
 [project.urls]
 Repository = "https://github.com/MohanadDiab/godot_rag"
-Documentation = "https://github.com/MohanadDiab/godot_rag#readme"
+Documentation = "https://godot-rag.readthedocs.io/en/latest/"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["godot_rag*", "scripts*"]
+include = ["godot_rag*", "scripts*", "web*"]
