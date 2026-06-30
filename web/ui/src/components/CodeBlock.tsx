@@ -3,6 +3,7 @@ import type { Components } from "react-markdown";
 import type { Element } from "hast";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { looksLikeGdscript } from "../utils/repairMarkdown";
 
 const LANGUAGE_ALIASES: Record<string, string> = {
   gdscript: "python",
@@ -99,7 +100,7 @@ export const markdownComponents: Components = {
       );
     }
 
-    return <CodeBlock language={languageFrom(className, node)} code={text} />;
+    return <CodeBlock language={languageFrom(className, node) ?? (looksLikeGdscript(text) ? "gdscript" : null)} code={text} />;
   },
   pre({ children }) {
     if (isValidElement(children)) {

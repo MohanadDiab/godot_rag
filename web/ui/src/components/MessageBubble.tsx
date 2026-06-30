@@ -4,6 +4,7 @@ import remarkGfm from "remark-gfm";
 import type { ChatMessage } from "../types";
 import { formatResponseTime } from "./AgentActivity";
 import { markdownComponents } from "./CodeBlock";
+import { repairMarkdown } from "../utils/repairMarkdown";
 
 interface MessageBubbleProps {
   message: ChatMessage;
@@ -12,6 +13,10 @@ interface MessageBubbleProps {
 
 function MessageBubbleInner({ message, isStreaming }: MessageBubbleProps) {
   const isUser = message.role === "user";
+  const assistantMarkdown =
+    !isUser && message.content
+      ? repairMarkdown(message.content, Boolean(isStreaming))
+      : message.content;
 
   return (
     <div className={`message ${isUser ? "user" : "assistant"}`}>
@@ -27,7 +32,7 @@ function MessageBubbleInner({ message, isStreaming }: MessageBubbleProps) {
                 remarkPlugins={[remarkGfm]}
                 components={markdownComponents}
               >
-                {message.content}
+                {assistantMarkdown}
               </ReactMarkdown>
             ) : null}
             {isStreaming && <span className="cursor-blink">▍</span>}
