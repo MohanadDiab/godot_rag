@@ -39,10 +39,6 @@ If download is slow or blocked, ensure your network allows HuggingFace Hub acces
 
 ## Python environment
 
-Use `python -m pip` if `pip` points to a broken or wrong virtualenv:
+Use `python -m pip install -e .` if `pip` points to the wrong environment.
 
-```powershell
-python -m pip install -e ".[web]"
-```
-
-Ensure you activate the project venv before running `godot-ask` or `godot-web`.
+Ensure the venv is active before `godot-web` or `godot-ask`.

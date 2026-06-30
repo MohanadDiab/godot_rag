@@ -1,30 +1,10 @@
 # Godot RAG
 
-A retrieval-augmented assistant for **Godot 4.x**. It searches official documentation and demo projects via ChromaDB, then answers questions with a LangChain agent backed by OpenAI.
+A **web chat assistant** for **Godot 4.x**. Ask questions in the browser; answers are grounded in official documentation and demo projects via a local RAG engine and OpenAI.
 
-The vector index is **pre-built** in the repository (`data/chroma/`, ~29k chunks). After install and an API key, you can ask questions immediately.
+![Godot RAG chat UI — empty state with example prompts](assets/screenshots/hero-empty-state.png)
 
-## Features
-
-- Pre-built ChromaDB index over Godot 4.x docs and official demo projects
-- **CLI** — `godot-ask "your question"`
-- **Web UI** — streamed chat with history, syntax-highlighted code blocks, and copy
-- **Python API** — `from godot_rag import ask, search, GodotAgent`
-- **Local search** — `search()` or `godot-ask --search-only` (no OpenAI key required)
-
-## How it works
-
-```
-Your question
-    → LangChain agent (OpenAI)
-        → search_godot_docs tool
-            → ChromaDB vector search (all-MiniLM-L6-v2)
-            → Link expansion (docs ↔ demos)
-            → Context slots: docs | code | scenes
-        → Grounded answer
-```
-
-Retrieval runs entirely on your machine. Only the final answer step calls OpenAI.
+The vector index is **pre-built** (~29k chunks). Clone, build the UI once, run `godot-web`, and add your API key in the top bar.
 
 ## Quick start
 
@@ -34,23 +14,42 @@ git clone https://github.com/MohanadDiab/godot_rag.git
 cd godot_rag
 python -m venv .venv
 .\.venv\Scripts\pip install -e .
-copy .env.example .env
-# Edit .env with your OpenAI API key
-godot-ask "How does CharacterBody2D move_and_slide work?"
-```
-
-See [Installation](getting-started/installation.md) for details and the [Web UI](user-guide/web-ui.md) setup.
-
-### Web UI (one terminal)
-
-```powershell
-pip install -e ".[web]"
 cd web/ui && npm install && npm run build && cd ../..
 godot-web
 ```
 
-For UI development with hot reload: `godot-web --dev` → [localhost:5173](http://localhost:5173).
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000) and enter your OpenAI API key in the top bar.
+
+Full walkthrough: [Quick start](getting-started/quick-start.md) on Read the Docs.
+
+## Features
+
+- **Web chat UI** — streaming replies, session history, syntax-highlighted code with copy
+- **Example prompts** — one-click starters for common Godot topics
+- **Local RAG** — ChromaDB + sentence-transformers over ~29k doc and demo chunks
+- **Agent activity** — live status while retrieving docs and generating answers
+
+![Assistant reply with a code block](assets/screenshots/chat-code-block.png)
+
+## Also available
+
+| Interface | Command / import |
+|-----------|------------------|
+| CLI | `godot-ask "your question"` |
+| Python API | `from godot_rag import ask, search, GodotAgent` |
+| Dev UI hot reload | `godot-web --dev` → [localhost:5173](http://localhost:5173) |
+
+See [Advanced — CLI](user-guide/cli.md) and [Advanced — Python API](user-guide/python-api.md).
+
+## Documentation
+
+**[godot-rag.readthedocs.io](https://godot-rag.readthedocs.io/en/latest/)**
+
+- [Quick start](getting-started/quick-start.md)
+- [Web UI](user-guide/web-ui.md)
+- [API keys](getting-started/api-keys.md)
+- [How it works](reference/how-it-works.md)
 
 ## License
 
-Pipeline and application code is [MIT](https://github.com/MohanadDiab/godot_rag/blob/main/LICENSE). Indexed content comes from [Godot documentation](https://github.com/godotengine/godot-docs) and [demo projects](https://github.com/godotengine/godot-demo-projects) — follow their respective licenses when redistributing derived data.
+MIT — see [LICENSE](https://github.com/MohanadDiab/godot_rag/blob/main/LICENSE). Indexed content is from [Godot documentation](https://github.com/godotengine/godot-docs) and [demo projects](https://github.com/godotengine/godot-demo-projects).

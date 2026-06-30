@@ -1,5 +1,5 @@
 site_name: Godot RAG
-site_description: RAG assistant for Godot 4.x — official docs and demo projects
+site_description: Web chat assistant for Godot 4.x — official docs and demo projects
 site_url: https://godot-rag.readthedocs.io/
 repo_url: https://github.com/MohanadDiab/godot_rag
 repo_name: MohanadDiab/godot_rag
@@ -42,11 +42,12 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Getting started:
+      - Quick start: getting-started/quick-start.md
       - Installation: getting-started/installation.md
       - API keys: getting-started/api-keys.md
-  - User guide:
+  - Web UI: user-guide/web-ui.md
+  - Advanced:
       - CLI: user-guide/cli.md
-      - Web UI: user-guide/web-ui.md
       - Python API: user-guide/python-api.md
   - Reference:
       - How it works: reference/how-it-works.md

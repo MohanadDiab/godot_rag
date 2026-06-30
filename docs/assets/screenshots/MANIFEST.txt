@@ -1,0 +1,23 @@
+# Screenshot assets
+
+Add PNG screenshots here for the README and MkDocs docs. Use the **dark theme** app, **1440×900** or **1920×1080**, and crop to the relevant UI area.
+
+| File | What to capture |
+|------|-----------------|
+| `hero-empty-state.png` | Full app on a **new chat**: sidebar, top bar, example prompts, empty state text |
+| `top-bar-settings.png` | **Top bar** close-up: API key field (masked), model dropdown, New chat button |
+| `sidebar-sessions.png` | **Left sidebar** with 2–3 named chat sessions, one selected |
+| `agent-activity.png` | **Agent activity** bar during a request (e.g. "Retrieving related docs…" or embedding progress) with timer |
+| `chat-code-block.png` | **Assistant message** with a fenced code block showing syntax highlight and **Copy** button |
+
+## Used in
+
+| File | Screenshots |
+|------|-------------|
+| Repository README.md | `hero-empty-state.png` |
+| docs/index.md | `hero-empty-state.png`, `chat-code-block.png` |
+| docs/getting-started/quick-start.md | `hero-empty-state.png` |
+| docs/getting-started/api-keys.md | `top-bar-settings.png` |
+| docs/user-guide/web-ui.md | all five |
+
+Replace the 1×1 placeholder PNGs with real screenshots using these exact filenames.

@@ -1,4 +1,8 @@
-"""Godot RAG — ask questions about Godot 4.x using official docs and demos."""
+"""Godot RAG — web chat and Python API for Godot 4.x docs and demos.
+
+Primary interface: ``godot-web`` (local chat UI).
+Secondary: ``godot-ask`` CLI and the exports below.
+"""
 
 from __future__ import annotations
 

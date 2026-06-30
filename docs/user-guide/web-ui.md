@@ -1,55 +1,68 @@
 # Web UI
 
-Local chat interface with streaming responses, sidebar history, markdown code blocks with copy, and an in-browser API key field.
+The main way to use Godot RAG: a local chat app with streaming answers, history, and code copy.
 
-## Quick start (one terminal)
+![Chat UI with example prompts](../assets/screenshots/hero-empty-state.png)
 
-**Production** — build once, then serve UI + API on port 8000:
+## Start the app
+
+From the **repository root** (after [installation](../getting-started/installation.md)):
 
 ```powershell
-pip install -e ".[web]"
-cd web/ui && npm install && npm run build && cd ../..
 godot-web
 ```
 
 Open [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
-**Development** — API + Vite hot reload in a single command:
+## Settings bar
+
+![API key and model in the top bar](../assets/screenshots/top-bar-settings.png)
+
+Enter your **OpenAI API key** and **model** here. Keys stay in browser `localStorage` — see [API keys](../getting-started/api-keys.md).
+
+## Chat history
+
+![Sidebar with chat sessions](../assets/screenshots/sidebar-sessions.png)
+
+Sessions are stored locally in your browser. Create, select, or delete chats from the left sidebar.
+
+## Example prompts
+
+On a new chat, click a suggested prompt (PackedScene, signals, movement, UI, animations, project structure) to send it immediately.
+
+## Agent activity
+
+![Loading / retrieving status with timer](../assets/screenshots/agent-activity.png)
+
+While the agent works, the UI shows the current phase (loading embeddings, retrieving docs, thinking, writing) and elapsed time.
+
+## Code in answers
+
+![Syntax-highlighted code block with copy button](../assets/screenshots/chat-code-block.png)
+
+Replies render as Markdown. Fenced code blocks include syntax highlighting and a **Copy** button.
+
+## Development mode
+
+Hot reload for UI work (single terminal):
 
 ```powershell
-pip install -e ".[web]"
 cd web/ui && npm install && cd ../..
 godot-web --dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173). Vite proxies `/api` to the backend on port 8000.
-
-Press Ctrl+C to stop both servers.
-
-## Options
+Open [http://localhost:5173](http://localhost:5173). Vite proxies `/api` to port 8000.
 
 | Flag | Description |
 |------|-------------|
-| `--dev` | Start API (with reload) and Vite dev server together |
-| `--host` | API bind address (default: `127.0.0.1`) |
-| `--port` | API port (default: `8000`) |
-
-## API key
-
-Enter your OpenAI API key and model in the top bar. The key is stored in browser `localStorage` only — see [API keys](../getting-started/api-keys.md#web-ui).
-
-## Features
-
-- **Streaming answers** with live status (loading embeddings, retrieving docs, thinking, writing)
-- **Chat history** stored in browser `localStorage` (new / select / delete sessions)
-- **Example prompts** on empty chats to get started quickly
-- **Syntax-highlighted code blocks** with a copy button
-- **Response timer** showing elapsed seconds per reply
+| `--dev` | API (reload) + Vite together |
+| `--host` | API bind address (default `127.0.0.1`) |
+| `--port` | API port (default `8000`) |
 
 ## First prompt
 
-On the first request, the local embedding model (`all-MiniLM-L6-v2`) is downloaded and cached. A progress bar appears in the UI. Subsequent prompts skip this step.
+The first request downloads the local embedding model (`all-MiniLM-L6-v2`, ~90 MB). Later prompts skip this step.
 
 ## Security
 
-`godot-web` is intended for **local use only**. Do not expose it to the public internet without authentication. See [API keys — Web UI](../getting-started/api-keys.md#web-ui).
+For **local use only** (`127.0.0.1`). Do not expose `godot-web` to the public internet without authentication.

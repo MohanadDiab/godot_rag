@@ -2,27 +2,25 @@
 
 ## Prerequisites
 
-- **Python 3.11+**
-- **Git LFS** — the vector index and chunk files are stored via [Git LFS](https://git-lfs.com/) (over GitHub's 100 MB limit)
-- **OpenAI API key** — required for agent answers only; see [API keys](api-keys.md)
+| Requirement | Purpose |
+|-------------|---------|
+| **Python 3.11+** | Backend, RAG engine, `godot-web` |
+| **Git LFS** | Vector index and chunk files |
+| **Node.js (LTS)** | Build the web UI once (`npm install && npm run build`) |
+| **OpenAI API key** | Agent answers (enter in web UI top bar or `.env` for CLI) |
 
 ## Clone the repository
-
-Install Git LFS, then clone:
 
 ```powershell
 git lfs install
 git clone https://github.com/MohanadDiab/godot_rag.git
 cd godot_rag
-```
-
-If you already cloned without LFS, pull the large files:
-
-```powershell
 git lfs pull
 ```
 
 ## Python environment
+
+From the repo root:
 
 ```powershell
 python -m venv .venv
@@ -30,81 +28,47 @@ python -m venv .venv
 pip install -e .
 ```
 
-For the web UI, install the optional extra:
+This installs the web server, RAG engine, and `godot-ask` CLI together.
+
+## Build the web UI
 
 ```powershell
-pip install -e ".[web]"
+cd web/ui
+npm install
+npm run build
+cd ../..
 ```
 
-On Linux/macOS:
+## Environment variables (optional for web UI)
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -e .
-```
-
-## Environment variables
-
-Copy the template and add your OpenAI key:
+For CLI use or a default model, copy `.env.example` to `.env`:
 
 ```powershell
 copy .env.example .env
 ```
 
-Edit `.env`:
+See [API keys](api-keys.md). The web UI can use the top bar instead of `.env`.
 
-```
-OPENAI_API_KEY=sk-your-key-here
-OPENAI_MODEL=gpt-5-nano
-```
+## Verify
 
-Full guide: [API keys](api-keys.md).
-
-## Verify installation
+Start the app:
 
 ```powershell
-godot-ask --search-only "CharacterBody2D move_and_slide"
-```
-
-This runs local retrieval only (no API key needed). For a full agent answer:
-
-```powershell
-godot-ask "How does CharacterBody2D move_and_slide work?"
-```
-
-## Web UI (optional)
-
-Install the web extra and frontend dependencies:
-
-```powershell
-pip install -e ".[web]"
-cd web/ui && npm install && cd ../..
-```
-
-**Production** (single server on port 8000):
-
-```powershell
-cd web/ui && npm run build && cd ../..
 godot-web
 ```
 
-**Development** (hot reload, single command):
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
-```powershell
-godot-web --dev
-```
-
-Open [http://127.0.0.1:8000](http://127.0.0.1:8000) (production) or [http://localhost:5173](http://localhost:5173) (dev). See [Web UI](../user-guide/web-ui.md).
+For a faster path, see [Quick start](quick-start.md).
 
 ## What's included
 
 | Path | Purpose |
 |------|---------|
-| `data/chunks.jsonl` | Source of truth for all indexed chunks |
-| `data/chroma/` | Persisted vector index (`godot_rag` collection) |
-| `godot_rag/` | Public Python package and `godot-ask` CLI |
-| `scripts/` | Agent and retrieval implementation |
-| `web/` | FastAPI backend and React chat UI |
+| `data/chroma/` | Pre-built vector index (required) |
+| `data/chunks.jsonl` | Indexed chunk source (LFS) |
+| `web/ui/` | React chat interface |
+| `scripts/` | Agent and retrieval engine |
+| `godot_rag/` | Python package and `godot-ask` CLI |
 
-The index is pre-built. You do not need to download Godot docs or demo projects to use Godot RAG.
+No Godot source repos are required — the index is already built.

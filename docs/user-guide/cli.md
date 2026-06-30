@@ -1,6 +1,6 @@
-# CLI
+# Advanced — CLI
 
-The `godot-ask` command is the main way to interact with Godot RAG from the terminal.
+`godot-ask` is a terminal interface to the same RAG agent as the web UI. Use it for scripts, automation, or when you prefer the shell.
 
 ## One-shot question
 
@@ -8,17 +8,17 @@ The `godot-ask` command is the main way to interact with Godot RAG from the term
 godot-ask "How does CharacterBody2D move_and_slide work?"
 ```
 
+Requires `OPENAI_API_KEY` in `.env` or your environment — see [API keys](../getting-started/api-keys.md).
+
 ## Interactive session
 
 ```powershell
 godot-ask -i
 ```
 
-Type your questions at the `You:` prompt. Enter `exit`, `quit`, or `q` to leave, or press Ctrl+C.
-
 ## Search without OpenAI
 
-Retrieve context from the vector index without calling OpenAI (no API key required):
+Local vector retrieval only (no API key):
 
 ```powershell
 godot-ask --search-only "dodge the creeps player movement"
@@ -26,17 +26,17 @@ godot-ask --search-only "dodge the creeps player movement"
 
 ## Choose a model
 
-Override the default model from `.env`:
-
 ```powershell
 godot-ask --model gpt-4o-mini "What is a TileMapLayer?"
 ```
 
-## Command reference
+## Options
 
 | Flag | Description |
 |------|-------------|
 | `question` | Question to ask (omit for interactive mode) |
-| `-i`, `--interactive` | Interactive Q&A session |
-| `--search-only` | Local retrieval only; no OpenAI call |
-| `--model` | OpenAI model name (default: `OPENAI_MODEL` env or `gpt-5-nano`) |
+| `-i`, `--interactive` | Interactive Q&A |
+| `--search-only` | Retrieval only; no OpenAI |
+| `--model` | OpenAI model name |
+
+For the primary browser experience, see [Web UI](../user-guide/web-ui.md).

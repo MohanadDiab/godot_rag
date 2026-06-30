@@ -4,9 +4,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 
-A retrieval-augmented assistant for **Godot 4.x**. It searches official documentation and demo projects, then answers your questions with an AI agent grounded in that context.
+**Web chat assistant for Godot 4.x** — ask questions in the browser, grounded in official docs and demo projects.
 
-The vector index is **pre-built** (~29k chunks). Clone, add your OpenAI key, and start asking — no setup pipeline required.
+![Godot RAG chat UI](docs/assets/screenshots/hero-empty-state.png)
 
 ## Quick start
 
@@ -16,40 +16,29 @@ git clone https://github.com/MohanadDiab/godot_rag.git
 cd godot_rag
 python -m venv .venv
 .\.venv\Scripts\pip install -e .
-copy .env.example .env
-# Edit .env — add your OPENAI_API_KEY
-godot-ask "How does CharacterBody2D move_and_slide work?"
-```
-
-## Features
-
-- **CLI** — `godot-ask "your question"` or interactive mode (`-i`)
-- **Web UI** — streamed chat with history, code copy, and in-browser API key
-- **Python API** — `from godot_rag import ask, search, GodotAgent`
-- **Local search** — `godot-ask --search-only` (no OpenAI key needed)
-
-## Web UI
-
-```powershell
-pip install -e ".[web]"
 cd web/ui && npm install && npm run build && cd ../..
 godot-web
 ```
 
-Open [http://127.0.0.1:8000](http://127.0.0.1:8000). For hot reload during UI development: `godot-web --dev` → [localhost:5173](http://localhost:5173).
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000) and add your OpenAI API key in the top bar.
 
-See the [Web UI guide](https://godot-rag.readthedocs.io/en/latest/user-guide/web-ui/) for details.
+## Features
+
+- Streaming chat with session history and example prompts
+- Syntax-highlighted code blocks with copy
+- Local RAG over ~29k Godot 4.x doc and demo chunks
+- Live agent status (retrieving docs, writing answer, timer)
+
+## Also available
+
+- **CLI:** `godot-ask "How does move_and_slide work?"`
+- **Python API:** `from godot_rag import ask, search, GodotAgent`
+- **Dev mode:** `godot-web --dev` for UI hot reload
 
 ## Documentation
 
-**Full documentation on Read the Docs:** [godot-rag.readthedocs.io](https://godot-rag.readthedocs.io/en/latest/)
-
-- [Installation](https://godot-rag.readthedocs.io/en/latest/getting-started/installation/)
-- [API keys](https://godot-rag.readthedocs.io/en/latest/getting-started/api-keys/)
-- [CLI](https://godot-rag.readthedocs.io/en/latest/user-guide/cli/)
-- [Python API](https://godot-rag.readthedocs.io/en/latest/user-guide/python-api/)
-- [How it works](https://godot-rag.readthedocs.io/en/latest/reference/how-it-works/)
+**[godot-rag.readthedocs.io](https://godot-rag.readthedocs.io/en/latest/)** — [Quick start](https://godot-rag.readthedocs.io/en/latest/getting-started/quick-start/), [Web UI](https://godot-rag.readthedocs.io/en/latest/user-guide/web-ui/), [API keys](https://godot-rag.readthedocs.io/en/latest/getting-started/api-keys/)
 
 ## License
 
-MIT — see [LICENSE](LICENSE). Indexed content is from [Godot docs](https://github.com/godotengine/godot-docs) and [demo projects](https://github.com/godotengine/godot-demo-projects); follow their licenses when redistributing derived data.
+MIT — see [LICENSE](LICENSE). Indexed content is from [Godot docs](https://github.com/godotengine/godot-docs) and [demo projects](https://github.com/godotengine/godot-demo-projects).

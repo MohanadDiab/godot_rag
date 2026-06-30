@@ -1,83 +1,70 @@
 # API keys and environment variables
 
-The Godot RAG agent uses **OpenAI** for answering questions. Vector search runs locally (ChromaDB + sentence-transformers) and does not need a cloud API key.
+The Godot RAG agent uses **OpenAI** for answering questions. Vector search runs locally and does not need a cloud API key.
 
-## Quick setup
+## Web UI (recommended)
 
-1. Copy the template in the project root:
+![API key and model in the top bar](../assets/screenshots/top-bar-settings.png)
 
-   ```powershell
-   copy .env.example .env
-   ```
+1. Run `godot-web` and open [http://127.0.0.1:8000](http://127.0.0.1:8000)
+2. Enter your **OpenAI API key** and **model** in the top bar
+3. The key is stored in **browser `localStorage` only** — not on disk by the server
 
-2. Edit `.env` and set your OpenAI API key:
+No `.env` file is required for the web UI.
 
-   ```
-   OPENAI_API_KEY=sk-your-key-here
-   OPENAI_MODEL=gpt-5-nano
-   ```
+## CLI and Python API
 
-3. **Never commit `.env`** — it is listed in `.gitignore`. Only `.env.example` (with placeholders) belongs in git.
+For `godot-ask` or `from godot_rag import ask`, use a `.env` file:
+
+```powershell
+copy .env.example .env
+```
+
+```
+OPENAI_API_KEY=sk-your-key-here
+OPENAI_MODEL=gpt-5-nano
+```
+
+**Never commit `.env`** — it is in `.gitignore`.
 
 ## Variables
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `OPENAI_API_KEY` | Yes (for `ask` / agent) | Your [OpenAI API key](https://platform.openai.com/api-keys). Starts with `sk-`. |
-| `OPENAI_MODEL` | No | Chat model name. Default: `gpt-5-nano`. Use any model your account supports (e.g. `gpt-4o-mini`). |
+| `OPENAI_API_KEY` | Yes (for agent answers) | [OpenAI API key](https://platform.openai.com/api-keys) |
+| `OPENAI_MODEL` | No | Default: `gpt-5-nano` |
 
 ## What needs a key?
 
 | Feature | OpenAI key needed? |
 |---------|-------------------|
-| `godot-ask` / `ask()` | **Yes** |
-| `godot-ask --search-only` / `search()` | **No** — local retrieval only |
-| Web UI (`godot-web`) | **Yes** — key entered in the browser top bar |
+| Web UI (`godot-web`) | **Yes** — top bar |
+| `godot-ask` / `ask()` | **Yes** — `.env` or env var |
+| `godot-ask --search-only` / `search()` | **No** |
 
 ## Getting an OpenAI key
 
-1. Sign in at [platform.openai.com](https://platform.openai.com).
-2. Go to **API keys** and create a new secret key.
-3. Paste it into `.env` as `OPENAI_API_KEY=sk-...`.
-4. Ensure your account has credits or billing enabled for the model you choose.
+1. Sign in at [platform.openai.com](https://platform.openai.com)
+2. Create a key under **API keys**
+3. Ensure billing/credits are enabled for your chosen model
 
-## Web UI
+## Security
 
-The chat UI stores your API key in **browser `localStorage` only** — it is sent to the local FastAPI server per request and is never written to disk by the server.
+- **Local use only** — do not expose `godot-web` publicly without auth
+- Do not commit keys or share `.env` in screenshots
+- Rotate exposed keys at [platform.openai.com/api-keys](https://platform.openai.com/api-keys)
 
-- Intended for **local use** (`127.0.0.1`) on your own machine.
-- Do **not** expose `godot-web` to the public internet without adding authentication.
-- Prefer `.env` for CLI use; use the top bar for the web UI.
-
-## Security checklist
-
-- Do **not** put keys in source code, notebooks, or commit messages.
-- Do **not** share `.env` in screenshots or issue attachments.
-- Rotate the key at [platform.openai.com/api-keys](https://platform.openai.com/api-keys) if it is ever exposed.
-
-## Alternative: environment variables without `.env`
-
-You can export variables in your shell instead of using a file:
+## Shell environment (alternative to `.env`)
 
 ```powershell
 $env:OPENAI_API_KEY = "sk-your-key-here"
-$env:OPENAI_MODEL = "gpt-5-nano"
 godot-ask "How does move_and_slide work?"
 ```
-
-```bash
-export OPENAI_API_KEY=sk-your-key-here
-export OPENAI_MODEL=gpt-5-nano
-godot-ask "How does move_and_slide work?"
-```
-
-`python-dotenv` loads `.env` from the project root automatically when you use the agent.
 
 ## Troubleshooting
 
 | Error | Fix |
 |-------|-----|
-| `OPENAI_API_KEY is not set` | Create `.env` from `.env.example` or set the env var |
-| Model not found / 404 | Set `OPENAI_MODEL` to a model your account can access |
-| Rate limit / quota | Check billing and usage on the OpenAI dashboard |
-| Key works in shell but not in IDE | Ensure the IDE terminal cwd is the project root, or set env in IDE run config |
+| API key popup in web UI | Add key in top bar |
+| `OPENAI_API_KEY is not set` (CLI) | Create `.env` or export env var |
+| Model not found / 404 | Pick a model your account supports |

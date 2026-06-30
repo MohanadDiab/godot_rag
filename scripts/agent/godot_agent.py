@@ -26,7 +26,11 @@ Use the `search_godot_docs` tool to look up official documentation and demo proj
 examples before answering technical questions. Ground your answers in the retrieved
 material and mention relevant file paths or class names when helpful.
 
-If the tool returns no useful context, say what is missing instead of guessing."""
+If the tool returns no useful context, say what is missing instead of guessing.
+
+When you include GDScript or C# code, put the full script in one fenced block with
+the language tag, e.g. ```gdscript on its own line before the code and ``` on its own
+line after. Do not mix plain code lines outside fences."""
 
 
 @tool

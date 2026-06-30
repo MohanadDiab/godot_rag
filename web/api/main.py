@@ -79,9 +79,13 @@ def run_prod(host: str = "127.0.0.1", port: int = 8000) -> None:
     """Serve the built UI and API from a single server."""
     if not UI_DIST.is_dir():
         print(
-            "Web UI not built. Run once:\n"
+            "Web UI not built yet. From the repo root, run once:\n"
+            "  pip install -e .\n"
             "  cd web/ui && npm install && npm run build\n"
-            "Or use dev mode with hot reload:\n"
+            "Then start the app:\n"
+            "  godot-web\n"
+            "\n"
+            "For UI development with hot reload:\n"
             "  godot-web --dev",
             file=sys.stderr,
         )

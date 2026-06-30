@@ -51,7 +51,7 @@ This distribution includes a ready-to-use vector index. Rebuilding the index fro
 
 | Path | Purpose |
 |------|---------|
-| `data/chunks.jsonl` | All indexed chunks (metadata + text) |
-| `data/chroma/` | ChromaDB persistence directory |
-| `data/corpus_stats.json` | Corpus summary statistics |
-| `data/link_stats.json` | Cross-link metadata |
+| `data/chroma/` | ChromaDB index (required at runtime) |
+| `data/chunks.jsonl` | Indexed chunks (LFS; transparency / reference) |
+
+Godot source repositories are **not** shipped with this project.

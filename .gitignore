@@ -38,6 +38,8 @@ data/chunks_demos.jsonl
 data/agent_prompt_eval.json
 data/retrieval_eval.json
 data/corpus_stats_demos.json
+data/corpus_stats.json
+data/link_stats.json
 data/retrieval_eval_notes.md
 
 # Source corpora — not shipped in this distribution

@@ -1,33 +1,19 @@
-"""Godot RAG chunking pipeline."""
+"""Runtime paths and chunk schema for Godot RAG."""
 
 from scripts.chunk.config import (
     CHROMA_COLLECTION_NAME,
+    EMBEDDING_MODEL,
     GODOT_VERSION,
     ensure_data_dirs,
     get_paths,
 )
-from scripts.chunk.schema import (
-    Chunk,
-    make_demo_chunk_id,
-    make_demo_project_id,
-    make_doc_chunk_id,
-    read_chunks_jsonl,
-    slugify,
-    validate_chunk,
-    write_chunks_jsonl,
-)
+from scripts.chunk.schema import Chunk
 
 __all__ = [
     "CHROMA_COLLECTION_NAME",
     "Chunk",
+    "EMBEDDING_MODEL",
     "GODOT_VERSION",
     "ensure_data_dirs",
     "get_paths",
-    "make_demo_chunk_id",
-    "make_demo_project_id",
-    "make_doc_chunk_id",
-    "read_chunks_jsonl",
-    "slugify",
-    "validate_chunk",
-    "write_chunks_jsonl",
 ]
