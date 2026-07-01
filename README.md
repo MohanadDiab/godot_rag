@@ -22,6 +22,8 @@ godot-web
 
 Open [http://127.0.0.1:8000](http://127.0.0.1:8000) and add your OpenAI API key in the top bar.
 
+![OpenAI API key field in the top bar](docs/assets/screenshots/key_location.png)
+
 ## Features
 
 - Streaming chat with session history and example prompts

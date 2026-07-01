@@ -16,7 +16,7 @@ Open [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
 ## Settings bar
 
-![API key and model in the top bar](../assets/screenshots/top-bar-settings.png)
+![OpenAI API key field in the top bar](../assets/screenshots/key_location.png)
 
 Enter your **OpenAI API key** and **model** here. Keys stay in browser `localStorage` — see [API keys](../getting-started/api-keys.md).
 

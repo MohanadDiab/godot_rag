@@ -48,6 +48,8 @@ Open **[http://127.0.0.1:8000](http://127.0.0.1:8000)**.
 
 ## 5. Add your OpenAI API key
 
+![OpenAI API key field in the top bar](../assets/screenshots/key_location.png)
+
 Enter your key and model in the **top bar**. The key is stored in browser `localStorage` only — see [API keys](api-keys.md).
 
 A `.env` file is optional for the web UI (useful if you also run `godot-ask` from the terminal).

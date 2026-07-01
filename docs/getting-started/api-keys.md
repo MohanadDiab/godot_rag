@@ -4,7 +4,7 @@ The Godot RAG agent uses **OpenAI** for answering questions. Vector search runs 
 
 ## Web UI (recommended)
 
-![API key and model in the top bar](../assets/screenshots/top-bar-settings.png)
+![OpenAI API key field in the top bar](../assets/screenshots/key_location.png)
 
 1. Run `godot-web` and open [http://127.0.0.1:8000](http://127.0.0.1:8000)
 2. Enter your **OpenAI API key** and **model** in the top bar
