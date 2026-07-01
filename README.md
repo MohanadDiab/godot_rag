@@ -6,7 +6,7 @@
 
 **Web chat assistant for Godot 4.x** — ask questions in the browser, grounded in official docs and demo projects.
 
-![Godot RAG chat UI](docs/assets/screenshots/hero-empty-state.png)
+![Demo: using the Godot RAG web chat](docs/assets/videos/pres.gif)
 
 ## Quick start
 

@@ -2,7 +2,7 @@
 
 A **web chat assistant** for **Godot 4.x**. Ask questions in the browser; answers are grounded in official documentation and demo projects via a local RAG engine and OpenAI.
 
-![Godot RAG chat UI — empty state with example prompts](assets/screenshots/hero-empty-state.png)
+![Demo: using the Godot RAG web chat](assets/videos/pres.gif)
 
 The vector index is **pre-built** (~29k chunks). Clone, build the UI once, run `godot-web`, and add your API key in the top bar.
 
